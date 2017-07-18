@@ -1,5 +1,5 @@
 {
-    "name": "amajot/plates-catch-all-renderer",
+    "name": "amajot/plates-catchall-templater",
     "description": "Allows you to render templates without defined routes/actions as a kind of catch-all in Zend Expressive",
     "keywords": [
         "default template",
