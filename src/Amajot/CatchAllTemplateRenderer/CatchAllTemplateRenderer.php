@@ -1,6 +1,6 @@
 <?php
 
-namespace amajot\CatchAllTemplateRenderer;
+namespace Amajot\CatchAllTemplateRenderer;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
