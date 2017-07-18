@@ -1,0 +1,46 @@
+{
+    "name": "amajot/CatchAllTemplateRenderer",
+    "description": "Allows you to render templates without defined routes/actions as a kind of catch-all in Zend Expressive",
+    "keywords": [
+        "default template",
+        "package",
+        "templating",
+        "templates",
+        "catch-all"
+    ],
+    "license": "MIT",
+    "authors" : [
+        {
+            "name": "Andy Majot",
+            "role": "Developer"
+        }
+    ],
+    "require" : {
+        "php": "^5.3 | ^7.0",
+        "zendframework/zend-expressive-platesrenderer": "^1.3.1",
+        "psr/http-message": "^1.0",
+        "zendframework/zend-diactoros": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "~1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Amajot\\CatchAllTemplateRenderer\\": "src/Amajot/CatchAllTemplateRenderer"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CatchAllTemplateRendererTest\\": "test/Amajot/CatchAllTemplateRendererTest"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
