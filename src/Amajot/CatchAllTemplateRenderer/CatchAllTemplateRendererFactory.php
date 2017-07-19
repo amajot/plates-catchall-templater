@@ -37,20 +37,31 @@ class CatchAllTemplateRendererFactory
     {
         if ($this->platesEngine == null) {
             $this->platesEngine = new Engine();
-            $this->platesEngine->setFileExtension($config['extension']);
+        }
+        $this->platesEngine->setFileExtension($config['extension']);
 
-            $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
-            foreach ($allPaths as $namespace => $paths) {
-                $namespace = is_numeric($namespace) ? null : $namespace;
-                foreach ((array) $paths as $path) {
-                    if (!$this->platesEngine->getDirectory()) {
-                        $this->platesEngine->setDirectory($path);
-                    }
-                    $this->platesEngine->addFolder($namespace, $path, true);
+        $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
+        foreach ($allPaths as $namespace => $paths) {
+            $namespace = is_numeric($namespace) ? null : $namespace;
+            foreach ((array) $paths as $path) {
+                if (!$this->platesEngine->getDirectory()) {
+                    $this->setPlatesEngineDirectory($path, $config);
                 }
+                $this->platesEngine->addFolder($namespace, $path, true);
             }
         }
+        
         return $this->platesEngine;
+    }
+
+    private function setPlatesEngineDirectory($path, $config){
+        if(isset($config["catchall_template_directory"])){
+            $this->platesEngine->setDirectory($config["catchall_template_directory"]);
+        }
+        else{
+            $this->platesEngine->setDirectory($path);
+        }
+
     }
 
     public function setPlatesEngine(Engine $platesEngine)

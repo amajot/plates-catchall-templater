@@ -28,7 +28,8 @@ class CatchAllTemplateRendererFactoryTest extends TestCase
     public function testFactoryWithTemplate()
     {
         $factory = new CatchAllTemplateRendererFactory();
-        $this->container->get('config')->willReturn(array('templates' => array()));
+        $this->container->get('config')->willReturn(array('templates' => 
+        array("extension"=>"phtml",'paths'=> array("namespace"=>"path"))));
 
         $this->assertInstanceOf(CatchAllTemplateRendererFactory::class, $factory);
 
@@ -39,6 +40,40 @@ class CatchAllTemplateRendererFactoryTest extends TestCase
         $plates
                 ->setDirectory(Argument::type('String'))
                 ->willReturn(true);
+        $plates
+                ->getDirectory()
+                ->willReturn(false);
+        $plates
+                ->addFolder(Argument::type('String'), Argument::type('String'), true)
+                ->willReturn(false);
+
+        $factory->setPlatesEngine($plates->reveal());
+
+        $catchAll = $factory($this->container->reveal());
+
+        $this->assertInstanceOf(CatchAllTemplateRenderer::class, $catchAll);
+    }
+
+    public function testFactoryWithTemplateOverrideDirectory()
+    {
+        $factory = new CatchAllTemplateRendererFactory();
+        $this->container->get('config')->willReturn(array('templates' => 
+                array("extension"=>"phtml",'catchall_template_directory' => "catchall_template_directory", 'paths'=> array("namespace"=>"path"))));
+        $this->assertInstanceOf(CatchAllTemplateRendererFactory::class, $factory);
+
+        $plates = $this->prophesize(Engine::class);
+        $plates
+                ->setFileExtension(Argument::type('String'))
+                ->willReturn(true);
+        $plates
+                ->setDirectory(Argument::type('String'))
+                ->willReturn(true);
+        $plates
+                ->getDirectory()
+                ->willReturn(false);
+        $plates
+                ->addFolder(Argument::type('String'), Argument::type('String'), true)
+                ->willReturn(false);
 
         $factory->setPlatesEngine($plates->reveal());
 
